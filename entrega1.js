@@ -162,7 +162,7 @@ class Sistema   {
 
 const prompt = require("prompt-sync")({sigint: false});
 
-const r0 = prompt("Bem-vindo(a) ao sistema da Pousada Eclipse!\nDigite o número referente a ação que você gostaria de realizar:\n\n1. Fazer Login\n2. Fazer Cadastro\n3. Sair do Programa\n\nResposta: ")   
+const r0 = prompt("Bem-vindo(a) ao sistema da Pousada Eclipse!\nDigite o número referente a ação que você gostaria de realizar:\n\n1. Fazer Cadastro\n2. Fazer Login\n3. Sair do Programa\n\nResposta: ")   
 
 const numero = parseInt(r0);
 
