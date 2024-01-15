@@ -178,7 +178,7 @@ if (numero === 1) {
     console.log("\n\nÁrea de Login\n")
     const prompt = require("prompt-sync")({sigint: false});
     const nomeUR2 = prompt("Nome de usuário: ")
-    const senhaR2 = prompt("Senhaa: ")
+    const senhaR2 = prompt("Senha: ")
   
 } else if (numero === 3) {
     console.log(3);
