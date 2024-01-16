@@ -1,10 +1,10 @@
 class Usuario   {
-    // (descrever classe)
+    // Classe que caracteriza um usuário
 
     constructor(idU, nomeU, contato, senha, historico)    {
         this._idU = idU;
         this._nomeU = nomeU;
-        this._contato = contato;
+        this._contato = contato
         this._senha = senha;
         this._historico = [];
 
@@ -59,11 +59,17 @@ class Usuario   {
     set historico (novoHistorico)   {
         this._historico = novoHistorico
     }
- 
+
+    // Método toString
+
+    toString () {
+        return '\nInformações de Usuário:\n\nNome de Usuário: ${this._idU}\nNome: ${this._nomeU}\nTelefone de Contato: ${this._contato}\nHistórico:\n\n${this._historico}';
+    }
+    
 }
 
 class Propriedade   {
-    // (descrever classe)
+    // Classe que caracteriza uma propriedade
     constructor (idP, nomeP, endereco, capacidade, quartos, preco, disponibilidade)    {
         this._idP = idP;
         this._nomeP = nomeP;
@@ -76,7 +82,7 @@ class Propriedade   {
 
     // Métodos getter e setter de idP (ID da Propriedade)
 
-    get idP()   {
+    get idP ()   {
         return this._idP;
     }
 
@@ -87,7 +93,7 @@ class Propriedade   {
 
     // Métodos getter e setter de nomeP (nome da Propriedade)
 
-    get nomeP()   {
+    get nomeP ()   {
         return this._idP;
     }
 
@@ -99,9 +105,8 @@ class Propriedade   {
 }
 
 class Reserva   {
-    // (descrever classe)
-
-    constructor(idR, idP, data, dataCheckin, dataCheckout, valor, statusPagamento)   {
+    // Classe que caracteriza a reserva de uma propriedade
+    constructor (idR, idP, data, dataCheckin, dataCheckout, valor, statusPagamento)   {
         this._idR = idR
         this.idP = idP
         this.idU = idU
@@ -114,7 +119,7 @@ class Reserva   {
 
     // Métodos getter e setter de idR (ID da reserva)
 
-    get idR()   {
+    get idR ()   {
         return this._idR;
     }
 
@@ -124,7 +129,7 @@ class Reserva   {
 
     // Métodos getter e setter de data
 
-    get data()   {
+    get data ()   {
         return this._data;
     }
 
@@ -134,7 +139,7 @@ class Reserva   {
 
     // Métodos getter e setter de dataCheckin (data de Check-in)
 
-    get dataCheckin()   {
+    get dataCheckin ()   {
         return this._dataCheckin;
     }
 
@@ -144,7 +149,7 @@ class Reserva   {
 
     // Métodos getter e setter de dataCheckin (data de Check-out)
 
-    get dataCheckout()   {
+    get dataCheckout ()   {
         return this._dataCheckout;
     }
 
@@ -153,37 +158,196 @@ class Reserva   {
 
     }
 
+    // Método toString
+
+    toString () {
+        return '\nID da Reserva: ${this._idR}\nID da Propriedade: ${this.idP}\nNome de Usuário: ${this.idU}\nData: ${this._data}\nData de Check-in: ${this._dataCheckin}\nData de Check-out: ${this._dataCheckout}';
+    }
+
 }
+
+const prompt = require("prompt-sync")({sigint: true});
+
+// Constantes
+
+let nomeUR;
+let nomeUR2;
+let nomeR;
+let contatoR;
+let senhaR;
+let senhaR2;
 
 class Sistema   {
-    // (descrever classe)
+    // Classe que contém os métodos do sistema
+
+    // Métodos para o funcionário não logado 
+
+    inicializar ()    {
+        
+        console.log("Bem-vindo(a) ao sistema da Pousada Eclipse!\nDigite o número referente à ação que você gostaria de realizar:\n\n1. Fazer Cadastro\n2. Fazer Login\n3. Sair do Programa\n\nResposta:")
+    
+        const r0 = prompt();
+    
+        const n0 = parseInt(r0);
+    
+        if (n0 === 1) {
+            this.cadastrar();
+        } else if (n0 === 2) {
+            this.logar();
+        
+        } else if (n0 === 3) {
+            this.sair();
+        
+        } else {
+            console.log("\nOpção inválida\n");
+            this.inicializar();
+        
+        }
+    
+    }
+
+    cadastrar ()    {
+
+        console.log("\nÁrea de Cadastro\n");
+        nomeUR = prompt("Nome de Usuário: ");
+        nomeR = prompt("Nome: ");
+        contatoR = prompt("Telefone de Contato: ");
+        senhaR = prompt("Senha: ");
+    
+        // Construção da instância usuario com base nos dados informados
+        this.usuario = new Usuario (nomeUR, nomeR, contatoR, senhaR);
+        this.logar ();
+    
+    }
+
+    logar ()   {
+        console.log("\nÁrea de Login\n");
+        nomeUR2 = prompt("Nome de usuário: ");
+        senhaR2 = prompt("Senha: ");
+    
+        if (nomeUR === nomeUR2 && senhaR === senhaR2)  {
+            this.entrar ()
+    
+        } else  {
+            console.log("Dados incorretos. Por favor, tente novamente.")
+            this.logar ()
+        }
+    
+    }
+
+    sair ()    {
+        console.log("\nSessão finalizada\n");
+        process.exit();
+    }
+
+    entrar() {
+        console.log("\nLogin realizado com sucesso.\n\nDigite o número referente à ação que você gostaria de realizar:\n\n1. Ver Meus Dados\n2. Modificar Meus Dados\n3. Ver Lista de Propriedades\n4. Ver Lista de Reservas\n5. Ver Lista de Anúncios\n6. Reservar Propriedade\n7. Cancelar Reserva (Exige pelo menos 24h de antecedência)\n8. Adicionar Propriedade\n9. Excluir Propriedade\n10. Fazer Anúncio\n11. Excluir Anúncio\n12. Avaliar Estadia\n13. Visualizar Avaliaçoes\n\nResposta:");
+        const r1 = prompt();
+        const n1 = parseInt(r1);
+    
+        if (n1 === 1) {
+            this.verMeusDados();
+        } else if (n1 === 2) {
+            this.modificarMeusDados();
+        } else if (n1 === 3) {
+            this.verListaProp();
+        } else if (n1 === 4) {
+            this.verListaReservas();
+        } else if (n1 === 5) {
+            this.verListaAnuncios();
+        } else if (n1 === 6) {
+            this.reservarProp();
+        } else if (n1 === 7) {
+            this.cancelarReserva();
+        } else if (n1 === 8) {
+            this.addProp();
+        } else if (n1 === 9) {
+            this.excluirProp();  
+        } else if (n1 === 10) {
+            this.fazerAnuncio();
+        } else if (n1 === 11) {
+            this.excluirAnuncio();
+        } else if (n1 === 12) {
+            this.avaliarEstadia();
+        } else if (n1 === 13) {
+            this.visualizarAvaliacoes();  
+        } else {
+            console.log("\nOpção inválida\n");
+            this.entrar();
+        }
+    }
+
+    // Métodos para o funcionário logado
+
+    verMeusDados () {
+
+        if (this.usuario) {
+            console.log(this.usuario.toString());
+        } else {
+            console.log("Usuário não encontrado.");
+        }
+
+    }
+
+    modificarMeusDados()    {
+
+    }
+
+    verListaProp () {
+
+    }
+
+    verListaReservas () {
+
+    }
+
+    verListaAnuncios () {
+
+    }
+
+    reservarProp () {
+        
+    }
+
+    cancelarReserva ()  {
+
+    }
+
+    addProp ()  {
+
+    }
+
+    excluirProp ()  {
+
+    }
+
+    fazerAnuncio () {
+
+    }
+
+    excluirAnuncio () {
+
+    }
+
+    avaliarEstadia ()  {
+
+    }
+
+    visualizarAvaliacoes () {
+
+    }
 
 }
 
-const prompt = require("prompt-sync")({sigint: false});
+// O programa é inicializado automaticamente
 
-const r0 = prompt("Bem-vindo(a) ao sistema da Pousada Eclipse!\nDigite o número referente a ação que você gostaria de realizar:\n\n1. Fazer Cadastro\n2. Fazer Login\n3. Sair do Programa\n\nResposta: ")   
+const programa = new Sistema();
+programa.inicializar ();
 
-const numero = parseInt(r0);
 
-if (numero === 1) {
-  console.log("\n\nÁrea de Cadastro\n")
-  const prompt = require("prompt-sync")({sigint: false});
-  const nomeUR = prompt("Nome de usuário: ");
-  const nomeR = prompt("Nome: ");
-  const contatoR = prompt("Telefone de contato: ")
-  const senhaR = prompt("Senha: ")
-  
-} else if (numero === 2) {
-    console.log("\n\nÁrea de Login\n")
-    const prompt = require("prompt-sync")({sigint: false});
-    const nomeUR2 = prompt("Nome de usuário: ")
-    const senhaR2 = prompt("Senha: ")
-  
-} else if (numero === 3) {
-    console.log(3);
-} else {
-    console.log("Opção inválida");
-}
+
+
+
+
 
 
